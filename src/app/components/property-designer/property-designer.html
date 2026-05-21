@@ -1,0 +1,132 @@
+<div class="matrix-container">
+  <mat-card class="form-card">
+    <h2>Registrar Nueva Propiedad</h2>
+    <p class="subtitle">Ingresa la información base del inmueble antes de asignar las unidades.</p>
+
+    <div class="fields-inline">
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre del Edificio</mat-label>
+        <input matInput [(ngModel)]="propertyName" placeholder="Ej: Multifamiliar Pachacútec" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Dirección</mat-label>
+        <input
+          matInput
+          [(ngModel)]="propertyAddress"
+          placeholder="Ej: Av. Las Dos Chinitas, Ventanilla"
+        />
+      </mat-form-field>
+    </div>
+  </mat-card>
+
+  <mat-card class="table-card">
+    <div class="card-header">
+      <div>
+        <h3>1. Definir Cantidades por Piso</h3>
+        <p class="subtitle">Indica cuántas unidades de cada tipo tiene construidas cada nivel.</p>
+      </div>
+      <button mat-flat-button class="btn-limon-flat" (click)="addFloorRow()">
+        <mat-icon>add</mat-icon> Añadir Piso
+      </button>
+    </div>
+
+    <table class="matrix-table">
+      <thead>
+        <tr>
+          <th>Nivel</th>
+          <th>Cant. Cuartos Simples</th>
+          <th>Cant. Mini-Depas</th>
+          <th>Cant. Departamentos</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let floor of floorsMatrix; let i = index">
+          <td class="floor-num">Piso {{ floor.floorNumber }}</td>
+          <td>
+            <input
+              type="number"
+              class="matrix-input"
+              [(ngModel)]="floor.roomCount"
+              (change)="isGenerated = false"
+              min="0"
+            />
+          </td>
+          <td>
+            <input
+              type="number"
+              class="matrix-input"
+              [(ngModel)]="floor.miniCount"
+              (change)="isGenerated = false"
+              min="0"
+            />
+          </td>
+          <td>
+            <input
+              type="number"
+              class="matrix-input"
+              [(ngModel)]="floor.deptCount"
+              (change)="isGenerated = false"
+              min="0"
+            />
+          </td>
+          <td>
+            <button mat-icon-button color="warn" (click)="removeFloorRow(i)">
+              <mat-icon>delete_outline</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="footer-actions">
+      <button mat-raised-button class="btn-limon-flat" (click)="previewInventory()">
+        <mat-icon>visibility</mat-icon> GENERAR DESGLOSE DE PRECIOS
+      </button>
+    </div>
+  </mat-card>
+
+  <mat-card class="table-card" *ngIf="isGenerated">
+    <div class="card-header">
+      <h3>2. Ajustar Precios Individuales de las Unidades</h3>
+      <p class="subtitle">
+        Personaliza el número o precio de alquiler de habitaciones específicas si lo requieres.
+      </p>
+    </div>
+
+    <div class="floors-review-container">
+      <div *ngFor="let floor of generatedFloors" class="floor-review-row">
+        <h4 class="floor-title">Piso {{ floor.level }}</h4>
+
+        <div class="units-grid">
+          <div *ngFor="let unit of floor.units" class="unit-edit-card" [ngClass]="unit.type">
+            <div class="unit-type-tag">{{ unit.type }}</div>
+
+            <div class="edit-fields">
+              <div class="input-group">
+                <label>N° Unidad</label>
+                <input [(ngModel)]="unit.unitNumber" class="inline-edit-input" />
+              </div>
+
+              <div class="input-group">
+                <label>Precio Mensual</label>
+                <input
+                  type="number"
+                  [(ngModel)]="unit.price"
+                  class="inline-edit-input price-highlight"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-actions last-action">
+      <button mat-raised-button class="btn-limon-raised" (click)="saveProperty()">
+        <mat-icon>bolt</mat-icon> GUARDAR PROPIEDAD E INVENTARIO
+      </button>
+    </div>
+  </mat-card>
+</div>

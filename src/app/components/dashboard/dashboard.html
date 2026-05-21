@@ -1,0 +1,154 @@
+<div class="dashboard-wrapper">
+  <div *ngIf="loading" class="spinner-overlay">
+    <mat-spinner diameter="60"></mat-spinner>
+    <p>Cargando panel de control...</p>
+  </div>
+
+  <div *ngIf="!loading && data" class="dashboard-content">
+    <div class="dashboard-header">
+      <h1>Panel de Control</h1>
+      <p class="subtitle">Resumen operativo y financiero de tus alquileres en tiempo real.</p>
+    </div>
+
+    <div class="kpi-grid">
+      <mat-card class="kpi-card text-blue">
+        <div class="kpi-card-content">
+          <div class="kpi-info">
+            <span class="kpi-title">Ocupación de Cuartos</span>
+            <span class="kpi-value"
+              >{{ data.kpis.occupiedUnits }} / {{ data.kpis.totalUnits }}</span
+            >
+            <span class="kpi-subtext"
+              >Equivale al <b>{{ data.kpis.occupancyPercentage }}%</b> del total</span
+            >
+          </div>
+          <div class="kpi-icon-badge bg-blue">
+            <mat-icon>night_shelter</mat-icon>
+          </div>
+        </div>
+      </mat-card>
+
+      <mat-card class="kpi-card text-green">
+        <div class="kpi-card-content">
+          <div class="kpi-info">
+            <span class="kpi-title">Recaudado este Mes</span>
+            <span class="kpi-value"
+              >S/ {{ data.kpis.collectedRevenueThisMonth | number: '1.2-2' }}</span
+            >
+            <span class="kpi-subtext">Dinero neto ya ingresado</span>
+          </div>
+          <div class="kpi-icon-badge bg-green">
+            <mat-icon>payments</mat-icon>
+          </div>
+        </div>
+      </mat-card>
+
+      <mat-card class="kpi-card text-amber">
+        <div class="kpi-card-content">
+          <div class="kpi-info">
+            <span class="kpi-title">Pagos en Espera</span>
+            <span class="kpi-value"
+              >S/ {{ data.kpis.pendingRevenueThisMonth | number: '1.2-2' }}</span
+            >
+            <span class="kpi-subtext">Monto total por recaudar</span>
+          </div>
+          <div class="kpi-icon-badge bg-amber">
+            <mat-icon>pending_actions</mat-icon>
+          </div>
+        </div>
+      </mat-card>
+
+      <mat-card class="kpi-card text-purple">
+        <div class="kpi-card-content">
+          <div class="kpi-info">
+            <span class="kpi-title">Inquilinos Activos</span>
+            <span class="kpi-value">{{ data.kpis.activeTenantsCount }}</span>
+            <span class="kpi-subtext">Personas habitando actualmente</span>
+          </div>
+          <div class="kpi-icon-badge bg-purple">
+            <mat-icon>group</mat-icon>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+
+    <div class="main-dashboard-grid">
+      <mat-card class="chart-card">
+        <h3>Estado del Inventario</h3>
+        <div class="chart-container">
+          <canvas #occupancyChart></canvas>
+        </div>
+      </mat-card>
+
+      <mat-card class="chart-card">
+        <h3>Historial de Recaudación Mensual</h3>
+        <div class="chart-container">
+          <canvas #revenueChart></canvas>
+        </div>
+      </mat-card>
+    </div>
+
+    <div class="bottom-dashboard-grid">
+      <mat-card class="table-card">
+        <div class="card-title-container">
+          <mat-icon class="icon-delayed">notification_important</mat-icon>
+          <h3>Inquilinos con Pagos Retrasados</h3>
+        </div>
+        <p class="description">
+          Lista de inquilinos en periodo de tolerancia con avisos de cobro automáticos en curso.
+        </p>
+
+        <div class="list-wrapper">
+          <div *ngIf="data.criticalAlerts.length === 0" class="empty-state">
+            <mat-icon>verified</mat-icon>
+            <p>¡Todo al día! No hay inquilinos con retrasos pendientes.</p>
+          </div>
+
+          <div *ngFor="let alert of data.criticalAlerts" class="custom-list-item">
+            <div class="item-left">
+              <span class="tenant-name">{{ alert.tenantName }}</span>
+              <span class="property-detail"
+                >{{ alert.propertyName }} - Cuarto {{ alert.unitNumber }}</span
+              >
+            </div>
+            <div class="item-center">
+              <span class="rent-amount">S/ {{ alert.monthlyRent | number: '1.2-2' }}</span>
+              <span class="delay-badge">
+                {{ alert.daysDelayed === 0 ? 'Vence Hoy' : 'Hace ' + alert.daysDelayed + ' días' }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </mat-card>
+
+      <mat-card class="table-card">
+        <div class="card-title-container">
+          <mat-icon class="icon-activity">history</mat-icon>
+          <h3>Actividad Reciente y Rotación</h3>
+        </div>
+        <p class="description">
+          Historial de registros de entradas (Check-In) y salidas (Check-Out) del sistema.
+        </p>
+
+        <div class="list-wrapper">
+          <div *ngFor="let activity of data.recentActivity" class="activity-item">
+            <div
+              class="activity-icon-container"
+              [ngClass]="activity.type === 'CHECK_IN' ? 'activity-in' : 'activity-out'"
+            >
+              <mat-icon>{{ activity.type === 'CHECK_IN' ? 'login' : 'logout' }}</mat-icon>
+            </div>
+            <div class="activity-text">
+              <p class="activity-title">
+                <b>{{ activity.tenantName }}</b>
+                {{ activity.type === 'CHECK_IN' ? 'ingresó al' : 'desocupó el' }}
+                cuarto <b>{{ activity.unitNumber }}</b> ({{ activity.propertyName }})
+              </p>
+              <span class="activity-date">{{ activity.date | date: 'dd/MM/yyyy, h:mm a' }}</span>
+            </div>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>

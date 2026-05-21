@@ -1,0 +1,277 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+.matrix-container {
+  padding: 40px;
+  background: #f4f7f6;
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Tarjetas Base con Efecto de Elevación Suave */
+.form-card,
+.table-card {
+  padding: 30px;
+  border-radius: 20px;
+  background: #ffffff;
+  border: none !important;
+  box-shadow: 0 10px 30px rgba(16, 42, 67, 0.04) !important;
+  transition: transform 0.3s ease;
+}
+
+.form-card h2,
+.table-card h3 {
+  margin: 0 0 8px 0;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #1e293b;
+  letter-spacing: -0.5px;
+}
+
+.subtitle {
+  margin: 0 0 20px 0;
+  color: #64748b;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.fields-inline {
+  display: flex;
+  gap: 24px;
+  margin-top: 20px;
+}
+
+.fields-inline mat-form-field {
+  flex: 1;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  border-bottom: 2px solid #f1f5f9;
+  padding-bottom: 15px;
+}
+
+/* Botones con Acento Verde Limón */
+.btn-limon-flat {
+  background-color: #a3e635 !important; /* Verde Limón Principal */
+  color: #0f172a !important; /* Texto Oscuro para Contraste */
+  font-weight: 700 !important;
+  border-radius: 12px !important;
+  padding: 8px 20px !important;
+  box-shadow: 0 4px 14px rgba(163, 230, 53, 0.4) !important;
+  transition: all 0.2s ease-in-out !important;
+}
+
+.btn-limon-flat:hover {
+  background-color: #bef264 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(163, 230, 53, 0.6) !important;
+}
+
+.btn-limon-raised {
+  background: #0f172a !important; /* Fondo Oscuro Premium */
+  color: #ffffff !important;
+  font-weight: 800 !important;
+  font-size: 1rem !important;
+  border-radius: 14px !important;
+  padding: 16px 36px !important;
+  border: 2px solid #a3e635 !important; /* Borde Verde Limón */
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15) !important;
+  transition: all 0.2s ease !important;
+}
+
+.btn-limon-raised:hover {
+  background: #1e293b !important;
+  color: #a3e635 !important; /* Texto cambia a limón en hover */
+  transform: translateY(-3px);
+}
+
+/* Tabla Matricial de Alta Gama */
+.matrix-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 8px; /* Espacio entre filas */
+  margin-bottom: 25px;
+}
+
+.matrix-table th {
+  background: #0f172a; /* Cabecera Oscura */
+  color: #ffffff;
+  padding: 16px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.matrix-table th:first-child {
+  border-radius: 12px 0 0 12px;
+}
+.matrix-table th:last-child {
+  border-radius: 0 12px 12px 0;
+}
+
+.matrix-table td {
+  background: #f8fafc;
+  padding: 16px;
+  text-align: center;
+  border-top: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.matrix-table tr:hover td {
+  background: #f1f5f9;
+}
+
+.matrix-table td:first-child {
+  border-left: 1px solid #e2e8f0;
+  border-radius: 12px 0 0 12px;
+}
+.matrix-table td:last-child {
+  border-right: 1px solid #e2e8f0;
+  border-radius: 0 12px 12px 0;
+}
+
+.floor-num {
+  font-weight: 800;
+  color: #0f172a;
+  font-size: 1.05rem;
+}
+
+.matrix-input {
+  width: 90px;
+  padding: 10px;
+  border: 2px solid #cbd5e1;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #334155;
+  transition: all 0.2s ease;
+}
+
+.matrix-input:focus {
+  border-color: #a3e635;
+  outline: none;
+  background: #fefefc;
+  box-shadow: 0 0 0 4px rgba(163, 230, 53, 0.15);
+}
+
+/* Grilla de Revisión de Precios */
+.floors-review-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.floor-review-row {
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+}
+
+.floor-title {
+  margin: 0 0 20px 0;
+  font-size: 1.2rem;
+  color: #0f172a;
+  font-weight: 800;
+  border-left: 5px solid #a3e635; /* Detalle Limón */
+  padding-left: 12px;
+}
+
+.units-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.unit-edit-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 18px;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.unit-edit-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.04);
+}
+
+/* Indicadores de Tipo Modernizados */
+.unit-edit-card.Cuarto {
+  border-left: 5px solid #38bdf8;
+}
+.unit-edit-card.Mini-Depa {
+  border-left: 5px solid #a3e635;
+} /* Limón dinámico */
+.unit-edit-card.Departamento {
+  border-left: 5px solid #c084fc;
+}
+
+.unit-type-tag {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #64748b;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.edit-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.input-group label {
+  font-size: 0.75rem;
+  color: #64748b;
+  font-weight: 700;
+}
+
+.inline-edit-input {
+  padding: 10px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1e293b;
+  outline: none;
+  background: #ffffff;
+  transition: border 0.2s ease;
+}
+
+.inline-edit-input:focus {
+  border-color: #a3e635;
+}
+
+.price-highlight {
+  background: #fefce8;
+  border-color: #fef08a;
+  color: #1e293b;
+}
+
+.footer-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 25px;
+}
+
+.last-action {
+  border-top: 2px solid #f1f5f9;
+  padding-top: 25px;
+}

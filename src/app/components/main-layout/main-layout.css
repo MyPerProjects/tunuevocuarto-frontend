@@ -1,0 +1,39 @@
+.sidenav-container {
+  height: 100vh;
+}
+
+.sidenav {
+  width: 260px;
+  background-color: #f8f9fa;
+  border-right: 1px solid #ddd;
+}
+
+.logo-section {
+  padding: 30px 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo-text {
+  font-size: 20px;
+  font-weight: bold;
+  color: #3f51b5;
+  letter-spacing: 1px;
+}
+
+.main-content {
+  padding: 20px;
+  background-color: #fafafa;
+  min-height: calc(100vh - 64px);
+}
+
+.active-link {
+  background-color: rgba(63, 81, 181, 0.1);
+  color: #3f51b5 !important;
+  border-left: 4px solid #3f51b5;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}

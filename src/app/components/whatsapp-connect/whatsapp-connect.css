@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
+
+h2,
+h3,
+p,
+li,
+span {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+p {
+    padding-top: 15px;
+    margin: 0
+}
+
+.qr-wrapper {
+  padding: 16px;
+  max-width: 450px;
+  margin: 10px auto 0 auto;
+}
+
+.qr-card {
+  border-radius: 24px;
+  padding: 24px !important;
+  background: white;
+  border: none;
+  text-align: center;
+}
+
+.qr-header h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 8px 0 4px 0;
+  letter-spacing: -0.5px;
+}
+
+.qr-header p {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.4;
+}
+
+
+.logo-icon {
+  font-size: 44px !important;
+  width: 44px !important;
+  height: 44px !important;
+  color: #22c55e !important;
+}
+
+.divider {
+  border: 0;
+  height: 1px;
+  background: #f1f5f9;
+  margin: 20px 0;
+}
+
+.status-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 340px;
+  gap: 16px;
+}
+
+.loading-text {
+  color: #475569;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-top: 8px;
+}
+
+.qr-frame {
+  padding: 12px;
+  background: #f8fafc;
+  border: 2px dashed #cbd5e1;
+  border-radius: 20px;
+  display: inline-block;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+}
+
+.qr-frame img {
+  display: block;
+  width: 250px;
+  height: 250px;
+  border-radius: 12px;
+}
+
+.qr-frame-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.instructions {
+  text-align: left;
+  background: #f8fafc;
+  padding: 16px 16px 16px 28px;
+  border-radius: 16px;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #e2e8f0;
+}
+
+.instructions ol {
+  margin: 0;
+  padding: 0 0 0 12px;
+  color: #334155;
+  font-size: 0.85rem;
+}
+
+.instructions li {
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.instructions li:last-child {
+  margin-bottom: 0;
+}
+
+/* ESTADO EXITOSO PREMIUM */
+.success-state h3 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 4px 0 0 0;
+  letter-spacing: -0.5px;
+}
+
+.success-subtitle {
+  color: #64748b;
+  font-size: 0.85rem;
+  margin: 0;
+  max-width: 280px;
+  line-height: 1.4;
+}
+
+.success-icon-badge mat-icon {
+  font-size: 84px !important;
+  width: 84px !important;
+  height: 84px !important;
+  color: #22c55e !important;
+}
+
+.badge-online {
+  background: #dcfce7;
+  color: #166534;
+  font-weight: 800;
+  font-size: 0.75rem;
+  padding: 6px 16px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  margin-top: 8px;
+}

@@ -1,0 +1,58 @@
+<div class="qr-wrapper">
+  <mat-card class="qr-card mat-elevation-z4">
+    <div class="qr-header">
+      <mat-icon color="primary" class="logo-icon">whatsapp</mat-icon>
+      <h2>Vincular Con WhatsApp</h2>
+      <p>Conecta el sistema en tiempo real para automatizar los mensajes hacia los inquilinos.</p>
+    </div>
+
+    <hr class="divider" />
+
+    <div class="qr-body">
+      <div *ngIf="status === 'LOADING'" class="status-container">
+        <mat-spinner diameter="60"></mat-spinner>
+        <p class="loading-text">Iniciando el motor de WhatsApp Web...</p>
+      </div>
+
+      <div *ngIf="status === 'DISCONNECTED'" class="status-container">
+        <div class="qr-frame" *ngIf="qrCodeDataUrl">
+          <img [src]="qrCodeDataUrl" alt="Escanear Código QR Nativo" />
+        </div>
+
+        <div class="qr-frame-placeholder" *ngIf="!qrCodeDataUrl">
+          <mat-spinner diameter="40"></mat-spinner>
+          <p class="loading-text">Esperando código QR del servidor...</p>
+        </div>
+
+        <div class="instructions">
+          <ol>
+            <li>Abre WhatsApp en tu teléfono celular.</li>
+            <li>Toca <b>Menú</b> o <b>Ajustes</b> y selecciona <b>Dispositivos vinculados</b>.</li>
+            <li>Apunta la cámara de tu celular hacia esta pantalla para escanear el código.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div *ngIf="status === 'CONNECTED'" class="status-container success-state">
+        <div class="success-icon-badge">
+          <mat-icon>check_circle</mat-icon>
+        </div>
+        <h3>¡Dispositivo Vinculado!</h3>
+        <p class="success-subtitle">El sistema está conectado a tu número móvil correctamente.</p>
+        <span class="badge-online">SISTEMA EN LÍNEA</span>
+
+        <div class="logout-action-container" style="margin-top: 24px; width: 100%">
+          <button
+            mat-stroked-button
+            color="warn"
+            (click)="onLogout()"
+            style="width: 100%; border-radius: 8px; padding: 8px 0"
+          >
+            <mat-icon style="margin-right: 8px">logout</mat-icon>
+            Cerrar Sesión de WhatsApp
+          </button>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+</div>

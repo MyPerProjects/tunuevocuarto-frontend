@@ -1,0 +1,483 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
+
+h1,
+h2,
+h3,
+h4,
+span,
+p {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  padding: 0 10px;
+}
+
+.header-section h1 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.btn-limon-fab {
+  background-color: #a3e635 !important;
+  color: #0f172a !important;
+  font-weight: 700 !important;
+  border-radius: 14px !important;
+  box-shadow: 0 8px 20px rgba(163, 230, 53, 0.3) !important;
+  transition: all 0.25s ease !important;
+}
+
+.btn-limon-fab:hover {
+  background-color: #bef264 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(163, 230, 53, 0.45) !important;
+}
+
+.property-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 35px;
+  padding: 10px;
+}
+
+.card-container {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.property-card {
+  border-radius: 24px;
+  overflow: hidden;
+  border: none;
+  background: white;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04) !important;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.property-card img {
+  height: 200px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 20px 0 6px 0;
+  letter-spacing: -0.3px;
+}
+
+.address {
+  display: flex;
+  align-items: center;
+  color: #64748b;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  gap: 4px;
+}
+
+.address mat-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  color: #ef4444;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #f1f5f9;
+  color: #475569;
+  padding: 6px 14px;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.chip mat-icon {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+  color: #a3e635;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px !important;
+  background: #fafafa;
+  border-top: 1px solid #f1f5f9;
+}
+
+.action-right-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-edit-trigger {
+  color: #475569 !important;
+}
+
+.btn-edit-trigger:hover {
+  color: #a3e635 !important;
+  background: rgba(163, 230, 53, 0.1) !important;
+}
+
+.btn-action-view {
+  background: #0f172a !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  font-size: 0.85rem !important;
+  letter-spacing: 0.5px;
+  border-radius: 10px !important;
+  padding: 6px 16px !important;
+  border: 1.5px solid transparent;
+  transition: all 0.2s ease !important;
+}
+
+.card-container.expanded .btn-action-view {
+  background: transparent !important;
+  color: #0f172a !important;
+  border-color: #a3e635;
+}
+
+/* ==========================================================================
+   CAJÓN DESPLEGABLE MÓVIL (OPTIMIZADO PARA GALAXY A16)
+   ========================================================================== */
+.building-drawer {
+  background: #0f172a;
+  padding: 20px;
+  border-top: 3px solid #a3e635;
+  animation: slideDown 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.drawer-header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  gap: 10px;
+}
+
+.drawer-header h4 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.drawer-header mat-icon {
+  color: #a3e635;
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+/* Botón de Construcción Línea - Verde Limón */
+.btn-add-floor-inline {
+  background: #a3e635 !important;
+  color: #0f172a !important;
+  font-size: 0.75rem !important;
+  font-weight: 800 !important;
+  border-radius: 8px !important;
+  padding: 0 12px !important;
+  height: 32px !important;
+  line-height: 32px !important;
+}
+
+.mini-floors-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border: 4px solid #1e293b;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #1e293b;
+}
+
+.mini-floor-row {
+  display: flex;
+  background: #334155;
+  min-height: 65px; /* Ampliado levemente para tacto en celular */
+}
+
+.mini-floor-info {
+  width: 70px;
+  background: #1e293b;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  border-right: 2px solid #1e293b;
+}
+
+/* CAROUSEL TÁCTIL: Clave para el Galaxy A16 */
+.mini-units-row {
+  flex-grow: 1;
+  display: flex;
+  gap: 6px;
+  padding: 8px;
+  background: #0f172a;
+  overflow-x: auto; /* Habilita el desplazamiento horizontal con el dedo */
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch; /* Suavizado para pantallas móviles */
+}
+
+/* Bloques de Ventanas */
+.mini-unit-block {
+  color: #ffffff;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 6px 12px;
+  min-width: 75px; /* Evita que el flex aplaste la caja en móvil */
+  transition: all 0.2s ease;
+}
+
+/* Cambios Visuales cuando se entra a Modo Edición */
+.mini-unit-block.editing-mode {
+  border: 2px dashed #ffffff !important;
+  background: #1e293b !important; /* Fondo neutral oscuro para resaltar inputs */
+  color: #ffffff !important;
+}
+
+/* Estilos de Entrada de Precios */
+.price-input-wrapper {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 6px;
+  padding: 2px 4px;
+  margin-top: 4px;
+  width: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.currency-symbol {
+  color: #0f172a;
+  font-size: 0.65rem;
+  font-weight: 800;
+  margin-right: 1px;
+}
+
+.mobile-inline-input {
+  border: none;
+  background: transparent;
+  width: 100%;
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #0f172a;
+  outline: none;
+  padding: 2px 0;
+}
+
+/* ==========================================================================
+   COLORES POR ESTADO OPERATIVO
+   ========================================================================== */
+.mini-unit-block.vacio:not(.editing-mode) {
+  background: #a3e635 !important;
+  color: #0f172a !important;
+  border: 1px solid #65a30d;
+}
+
+.mini-unit-block.ocupado:not(.editing-mode) {
+  background: #f87171 !important;
+  color: #ffffff !important;
+  border: 1px solid #dc2626;
+}
+
+.mini-unit-block.mantenimiento:not(.editing-mode) {
+  background: #64748b !important;
+  color: #ffffff !important;
+  border: 1px solid #475569;
+  opacity: 0.75;
+}
+
+/* Proporciones de Ancho */
+.mini-unit-block.Cuarto {
+  flex: 1;
+}
+.mini-unit-block.Mini-Depa {
+  flex: 1.8;
+  min-width: 85px;
+}
+.mini-unit-block.Departamento {
+  flex: 2.6;
+  min-width: 100px;
+}
+
+.unit-type-indicator {
+  font-size: 0.6rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.unit-code {
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+.unit-price {
+  font-size: 0.7rem;
+  font-weight: 700;
+  margin-top: 1px;
+}
+.empty-text {
+  color: #64748b;
+  font-size: 0.8rem;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+}
+
+/* PANEL DE ACCIONES INLINE MÓVIL */
+.drawer-editable-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 15px;
+  border-top: 1px solid #1e293b;
+  padding-top: 15px;
+}
+
+.btn-cancel-inline {
+  color: #94a3b8 !important;
+  font-weight: 700 !important;
+  font-size: 0.8rem !important;
+}
+
+.btn-save-inline {
+  background: #a3e635 !important;
+  color: #0f172a !important;
+  font-weight: 800 !important;
+  font-size: 0.8rem !important;
+  border-radius: 8px !important;
+  padding: 4px 16px !important;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Agrega estos bloques al final de tu archivo property-list.css */
+
+.inline-floor-setup-card {
+  background: #1e293b;
+  border: 2px solid #a3e635;
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 15px;
+  animation: slideDown 0.2s ease-out;
+}
+
+.inline-floor-setup-card h5 {
+  margin: 0 0 12px 0;
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.mobile-matrix-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.qty-field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.qty-field label {
+  color: #94a3b8;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.matrix-input-mobile {
+  width: 100%;
+  background: #0f172a;
+  border: 1px solid #334155;
+  color: #ffffff;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 700;
+  outline: none;
+}
+
+.matrix-input-mobile:focus {
+  border-color: #a3e635;
+}
+
+.setup-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.btn-generate-inline {
+  background: #a3e635 !important;
+  color: #0f172a !important;
+  font-weight: 800 !important;
+  font-size: 0.75rem !important;
+  border-radius: 8px !important;
+}
+
+/* Agrega este fragmento al final de tu property-list.css */
+
+.unit-type-indicator.clickable-status {
+  background: rgba(255, 255, 255, 0.25);
+  padding: 2px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.65rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  transition: all 0.15s ease;
+}
+
+.unit-type-indicator.clickable-status:active {
+  transform: scale(0.92);
+  background: rgba(255, 255, 255, 0.4);
+}
+
+/* Ajuste fino para la vista de edición en caliente */
+.mini-unit-block.editing-mode .unit-code {
+  font-size: 0.75rem;
+  margin-top: 2px;
+}

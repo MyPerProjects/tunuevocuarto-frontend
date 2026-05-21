@@ -1,0 +1,177 @@
+<div class="header-section">
+  <h1>Mis Propiedades</h1>
+  <button mat-fab extended class="btn-limon-fab" (click)="goToDesigner()">
+    <mat-icon>add</mat-icon>
+    Nueva Propiedad
+  </button>
+</div>
+
+<div class="property-grid">
+  <div *ngFor="let prop of properties" class="card-container" [class.expanded]="prop.isExpanded">
+    <mat-card class="property-card mat-elevation-z3">
+      <img
+        mat-card-image
+        [src]="
+          prop.imageUrl ||
+          'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?q=80&w=1000&auto=format&fit=crop'
+        "
+        alt="Fachada"
+      />
+
+      <mat-card-content>
+        <h2 class="title">{{ prop.name }}</h2>
+        <p class="address"><mat-icon>location_on</mat-icon> {{ prop.address }}</p>
+        <div class="stats">
+          <span class="chip"> <mat-icon>layers</mat-icon> {{ prop.floors.length }} Pisos </span>
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-flat-button class="btn-action-view" (click)="toggleExpand(prop)">
+          {{ prop.isExpanded ? 'OCULTAR CUARTOS' : 'VER CUARTOS' }}
+        </button>
+
+        <div class="action-right-buttons">
+          <button
+            mat-icon-button
+            class="btn-edit-trigger"
+            (click)="enableEditing(prop)"
+            matTooltip="Editar Estructura y Precios"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            color="warn"
+            (click)="deleteProperty(prop.id!)"
+            matTooltip="Eliminar Propiedad"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </mat-card-actions>
+
+      <div class="building-drawer" *ngIf="prop.isExpanded">
+        <div class="drawer-header-wrapper">
+          <div class="drawer-header">
+            <h4>
+              <mat-icon>domain</mat-icon>
+              {{ prop.isEditing ? 'Modo Edición Activo' : 'Radiografía del Edificio' }}
+            </h4>
+          </div>
+          <button
+            *ngIf="prop.isEditing && !prop.isAddingFloor"
+            mat-flat-button
+            class="btn-add-floor-inline"
+            (click)="startNewFloorSetup(prop)"
+          >
+            <mat-icon>add</mat-icon> CONSTRUIR PISO
+          </button>
+        </div>
+
+        <div
+          class="inline-floor-setup-card"
+          *ngIf="prop.isEditing && prop.isAddingFloor && prop.newFloorNumbers"
+        >
+          <h5>Configurar Distribución del Piso {{ prop.floors.length + 1 }}</h5>
+          <div class="mobile-matrix-row">
+            <div class="qty-field">
+              <label>Cuartos</label>
+              <input
+                type="number"
+                [(ngModel)]="prop.newFloorNumbers.roomCount"
+                min="0"
+                class="matrix-input-mobile"
+              />
+            </div>
+            <div class="qty-field">
+              <label>Minis</label>
+              <input
+                type="number"
+                [(ngModel)]="prop.newFloorNumbers.miniCount"
+                min="0"
+                class="matrix-input-mobile"
+              />
+            </div>
+            <div class="qty-field">
+              <label>Depas</label>
+              <input
+                type="number"
+                [(ngModel)]="prop.newFloorNumbers.deptCount"
+                min="0"
+                class="matrix-input-mobile"
+              />
+            </div>
+          </div>
+          <div class="setup-actions">
+            <button mat-button class="btn-cancel-inline" (click)="prop.isAddingFloor = false">
+              Cancelar
+            </button>
+            <button
+              mat-flat-button
+              class="btn-generate-inline"
+              (click)="generateInlineFloorUnits(prop)"
+            >
+              GENERAR PISO
+            </button>
+          </div>
+        </div>
+
+        <div class="mini-floors-stack">
+          <div *ngFor="let floor of prop.floors.slice().reverse()" class="mini-floor-row">
+            <div class="mini-floor-info">
+              <span>Nivel {{ floor.level }}</span>
+            </div>
+
+            <div class="mini-units-row">
+              <div
+                *ngFor="let unit of floor.units"
+                class="mini-unit-block"
+                [ngClass]="[unit.status, unit.type, prop.isEditing ? 'editing-mode' : '']"
+                [matTooltip]="
+                  prop.isEditing && unit.status !== 'ocupado'
+                    ? 'Toca la letra para cambiar estado'
+                    : unit.type + ' (' + unit.status + ')'
+                "
+              >
+                <span
+                  class="unit-type-indicator"
+                  [class.clickable-status]="prop.isEditing && unit.status !== 'ocupado'"
+                  (click)="prop.isEditing && toggleUnitStatus(unit)"
+                >
+                  {{ unit.type[0] }}{{ prop.isEditing && unit.status !== 'ocupado' ? ' 🔄' : '' }}
+                </span>
+
+                <span class="unit-code">{{ unit.unitNumber }}</span>
+
+                <span *ngIf="!prop.isEditing" class="unit-price">S/ {{ unit.price }}</span>
+
+                <div *ngIf="prop.isEditing" class="price-input-wrapper">
+                  <span class="currency-symbol">S/</span>
+                  <input
+                    type="number"
+                    [(ngModel)]="unit.price"
+                    class="mobile-inline-input"
+                    onclick="this.select()"
+                  />
+                </div>
+              </div>
+              <div *ngIf="floor.units.length === 0" class="empty-text">
+                Piso vacío. Usa construir piso.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="drawer-editable-actions" *ngIf="prop.isEditing">
+          <button mat-button class="btn-cancel-inline" (click)="cancelEditing(prop)">
+            CANCELAR
+          </button>
+          <button mat-flat-button class="btn-save-inline" (click)="savePropertyChanges(prop)">
+            <mat-icon>save</mat-icon> GUARDAR CAMBIOS
+          </button>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>

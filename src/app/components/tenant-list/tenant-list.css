@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
+
+h1,
+th,
+td,
+span,
+button {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.list-wrapper {
+  padding: 16px;
+}
+
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.header-section h1 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.btn-limon-fab {
+  background-color: #a3e635 !important;
+  color: #0f172a !important;
+  font-weight: 700 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 6px 15px rgba(163, 230, 53, 0.3) !important;
+}
+
+.table-card {
+  border-radius: 20px;
+  overflow: hidden;
+  border: none;
+  background: white;
+}
+
+/* RESPONSIVE SCROLL: Evita que la tabla colapse a lo ancho en pantallas móviles */
+.responsive-table-container {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* Suavizado táctil para Android */
+}
+
+.custom-table {
+  width: 100%;
+  min-width: 600px; /* Clave: Fuerza un ancho mínimo interno para habilitar el deslizamiento cómodo */
+  background: transparent;
+}
+
+tr.mat-mdc-header-row {
+  background: #f8fafc;
+}
+
+th.mat-mdc-header-cell {
+  color: #64748b !important;
+  font-weight: 700 !important;
+  font-size: 0.85rem !important;
+  text-transform: uppercase;
+  padding: 16px !important;
+}
+
+td.mat-mdc-cell {
+  color: #334155 !important;
+  font-size: 0.95rem !important;
+  padding: 16px !important;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.font-bold-name {
+  font-weight: 700;
+  color: #0f172a !important;
+}
+
+.phone-cell {
+  font-family: monospace;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.actions-cell {
+  white-space: nowrap; /* Evita que los botones de acción se partan en dos filas */
+}
+
+.btn-edit {
+  color: #475569 !important;
+  margin-right: 4px;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.empty-state-text {
+  text-align: center;
+  color: #94a3b8;
+  padding: 40px;
+  font-style: italic;
+  font-size: 0.95rem;
+}

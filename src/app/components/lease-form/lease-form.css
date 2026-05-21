@@ -1,0 +1,51 @@
+.form-container {
+  padding: 16px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+.form-card {
+  border-radius: 20px;
+  padding: 20px !important;
+  background: white;
+}
+.form-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+.form-header h2 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+.mobile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.full-width {
+  width: 100%;
+}
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 20px;
+}
+.form-actions button {
+  flex: 1;
+  height: 48px !important;
+  font-weight: 700 !important;
+  border-radius: 12px !important;
+}
+.btn-cancel {
+  color: #64748b !important;
+  border-color: #cbd5e1 !important;
+}
+.btn-submit {
+  background-color: #a3e635 !important;
+  color: #0f172a !important;
+  box-shadow: 0 4px 12px rgba(163, 230, 53, 0.25) !important;
+}
