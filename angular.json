@@ -8,8 +8,7 @@
   "projects": {
     "tunuevocuarto-frontend": {
       "projectType": "application",
-      "schematics": {
-      },
+      "schematics": {},
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -25,7 +24,8 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/material-theme.scss", "src/styles.css"]
+            "styles": ["src/material-theme.scss", "src/styles.css"],
+            "externalDependencies": ["@angular/animations/browser"]
           },
           "configurations": {
             "production": {
