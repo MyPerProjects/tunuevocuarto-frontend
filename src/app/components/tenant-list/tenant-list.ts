@@ -1,10 +1,9 @@
-import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { TenantService } from '../../services/tenant';
 import { Tenant } from '../../models/tenant.model';
 
-// Material
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -31,9 +30,15 @@ export class TenantListComponent implements OnInit {
   private cdr = inject(ChangeDetectorRef);
 
   tenants: Tenant[] = [];
-
-  // Nombres de las columnas que pintará la tabla de Angular Material
   displayedColumns: string[] = ['name', 'dni', 'phone', 'actions'];
+
+  isMobile: boolean = window.innerWidth <= 768;
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.isMobile = event.target.innerWidth <= 768;
+    this.cdr.detectChanges();
+  }
 
   ngOnInit() {
     this.loadTenants();
@@ -53,11 +58,14 @@ export class TenantListComponent implements OnInit {
     this.router.navigate(['/tenants/new']);
   }
 
-  goToEdit(id: number) {
+  goToEdit(id: number | undefined) {
+    if (id === undefined) return;
     this.router.navigate([`/tenants/edit/${id}`]);
   }
 
-  deleteTenant(id: number) {
+  deleteTenant(id: number | undefined) {
+    if (id === undefined) return;
+
     if (confirm('¿Estás seguro de eliminar permanentemente a este inquilino del padrón maestro?')) {
       this.tenantService.delete(id).subscribe({
         next: () => {

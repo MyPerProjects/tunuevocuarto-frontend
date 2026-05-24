@@ -5,7 +5,6 @@ import { PropertyService } from '../../services/property';
 import { Property, Floor, Unit } from '../../models/property.model';
 import { Router } from '@angular/router';
 
-// Material
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -65,10 +64,19 @@ export class PropertyDesignerComponent {
     }
   }
 
-  /**
-   * Genera el inventario preliminar partiendo de un precio base estimado en el código (S/ 300)
-   */
   previewInventory() {
+    let totalUnitsAcumuladas = 0;
+    for (const floor of this.floorsMatrix) {
+      totalUnitsAcumuladas +=
+        Number(floor.roomCount || 0) + Number(floor.miniCount || 0) + Number(floor.deptCount || 0);
+    }
+
+    if (totalUnitsAcumuladas <= 0) {
+      alert('No puedes generar un desglose vacío. Añade al menos una unidad en algún piso.');
+      this.isGenerated = false;
+      return;
+    }
+
     this.generatedFloors = [];
     const basePriceSugerido = 300;
 
@@ -110,7 +118,7 @@ export class PropertyDesignerComponent {
       }
 
       this.generatedFloors.push({
-        level: matrix.floorNumber, // <--- CAMBIADO: Guardamos directamente como level
+        level: matrix.floorNumber,
         units: floorUnits,
       });
     }
@@ -129,7 +137,6 @@ export class PropertyDesignerComponent {
       return;
     }
 
-    // Como las interfaces ya coinciden al 100% con el DTO de NestJS, el payload es directo y limpio:
     const propertyPayload: Property = {
       name: this.propertyName,
       address: this.propertyAddress,
@@ -137,14 +144,14 @@ export class PropertyDesignerComponent {
         level: f.level,
         units: f.units.map((u) => ({
           ...u,
-          price: Number(u.price), // Nos aseguramos de mantener el cast numérico de seguridad
+          price: Number(u.price),
         })),
       })),
     };
 
     this.propertyService.create(propertyPayload).subscribe({
       next: () => {
-        alert('¡Propiedad guardada con éxito con tipado unificado!');
+        alert('¡Propiedad guardada con éxito!');
         this.router.navigate(['/dashboard']);
       },
       error: (err) => {

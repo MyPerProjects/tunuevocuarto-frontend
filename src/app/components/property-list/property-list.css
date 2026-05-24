@@ -1,24 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
-
-h1,
-h2,
-h3,
-h4,
-span,
-p {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-}
-
 .header-section {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 40px;
-  padding: 0 10px;
+  margin-bottom: 32px;
 }
 
 .header-section h1 {
-  font-size: 2.2rem;
+  font-size: 28px;
   font-weight: 800;
   color: #0f172a;
   margin: 0;
@@ -26,68 +14,59 @@ p {
 }
 
 .btn-limon-fab {
-  background-color: #a3e635 !important;
-  color: #0f172a !important;
-  font-weight: 700 !important;
-  border-radius: 14px !important;
-  box-shadow: 0 8px 20px rgba(163, 230, 53, 0.3) !important;
-  transition: all 0.25s ease !important;
-}
-
-.btn-limon-fab:hover {
-  background-color: #bef264 !important;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(163, 230, 53, 0.45) !important;
+  background-color: #84cc16 !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  border-radius: 16px !important;
+  box-shadow: 0 4px 12px rgba(132, 204, 22, 0.3) !important;
 }
 
 .property-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-  gap: 35px;
-  padding: 10px;
-}
-
-.card-container {
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  gap: 24px;
 }
 
 .property-card {
   border-radius: 24px;
   overflow: hidden;
-  border: none;
-  background: white;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04) !important;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  background: #ffffff;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05) !important;
+  border: 1px solid #f1f5f9 !important;
 }
 
 .property-card img {
-  height: 200px;
+  height: 180px;
   width: 100%;
   object-fit: cover;
 }
 
+.card-body {
+  padding: 20px 24px !important;
+}
+
 .title {
-  font-size: 1.4rem;
+  font-size: 20px;
   font-weight: 800;
   color: #0f172a;
-  margin: 20px 0 6px 0;
-  letter-spacing: -0.3px;
+  margin: 0 0 6px 0;
+  letter-spacing: -0.5px;
 }
 
 .address {
   display: flex;
   align-items: center;
   color: #64748b;
-  font-size: 0.9rem;
-  font-weight: 600;
-  margin-bottom: 16px;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 14px;
   gap: 4px;
 }
 
 .address mat-icon {
-  font-size: 18px;
-  width: 18px;
-  height: 18px;
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
   color: #ef4444;
 }
 
@@ -96,84 +75,77 @@ p {
   align-items: center;
   gap: 6px;
   background: #f1f5f9;
-  color: #475569;
+  color: #334155;
   padding: 6px 14px;
-  border-radius: 50px;
-  font-size: 0.85rem;
-  font-weight: 700;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 600;
 }
 
 .chip mat-icon {
   font-size: 16px;
   width: 16px;
   height: 16px;
-  color: #a3e635;
+  color: #84cc16;
 }
 
-mat-card-actions {
+.card-actions {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 20px !important;
-  background: #fafafa;
+  padding: 16px 24px !important;
+  background: #f8fafc;
   border-top: 1px solid #f1f5f9;
 }
 
 .action-right-buttons {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
 }
 
 .btn-edit-trigger {
-  color: #475569 !important;
-}
-
-.btn-edit-trigger:hover {
-  color: #a3e635 !important;
-  background: rgba(163, 230, 53, 0.1) !important;
+  color: #64748b !important;
 }
 
 .btn-action-view {
   background: #0f172a !important;
   color: #ffffff !important;
-  font-weight: 700 !important;
-  font-size: 0.85rem !important;
-  letter-spacing: 0.5px;
-  border-radius: 10px !important;
-  padding: 6px 16px !important;
-  border: 1.5px solid transparent;
-  transition: all 0.2s ease !important;
+  font-weight: 600 !important;
+  font-size: 13px !important;
+  border-radius: 12px !important;
+  padding: 0 16px !important;
+  height: 40px !important;
+  line-height: 40px !important;
 }
 
 .card-container.expanded .btn-action-view {
   background: transparent !important;
   color: #0f172a !important;
-  border-color: #a3e635;
+  border: 1px solid #84cc16 !important;
 }
 
 /* ==========================================================================
-   CAJÓN DESPLEGABLE MÓVIL (OPTIMIZADO PARA GALAXY A16)
+   CAJÓN DESPLEGABLE MATE Y MINIMALISTA
    ========================================================================== */
 .building-drawer {
-  background: #0f172a;
+  background: #f8fafc;
   padding: 20px;
-  border-top: 3px solid #a3e635;
-  animation: slideDown 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  border-top: 2px solid #e2e8f0;
+  animation: slideDown 0.2s ease-out forwards;
 }
 
 .drawer-header-wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
-  gap: 10px;
+  margin-bottom: 16px;
 }
 
 .drawer-header h4 {
   margin: 0;
-  color: #ffffff;
-  font-size: 0.95rem;
+  color: #1e293b;
+  font-size: 14px;
   font-weight: 700;
   display: flex;
   align-items: center;
@@ -181,20 +153,18 @@ mat-card-actions {
 }
 
 .drawer-header mat-icon {
-  color: #a3e635;
+  color: #84cc16;
   font-size: 20px;
   width: 20px;
   height: 20px;
 }
 
-/* Botón de Construcción Línea - Verde Limón */
 .btn-add-floor-inline {
-  background: #a3e635 !important;
-  color: #0f172a !important;
-  font-size: 0.75rem !important;
-  font-weight: 800 !important;
-  border-radius: 8px !important;
-  padding: 0 12px !important;
+  background: #84cc16 !important;
+  color: #ffffff !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  border-radius: 10px !important;
   height: 32px !important;
   line-height: 32px !important;
 }
@@ -202,81 +172,79 @@ mat-card-actions {
 .mini-floors-stack {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  border: 4px solid #1e293b;
-  border-radius: 14px;
+  gap: 6px;
+  border-radius: 16px;
   overflow: hidden;
-  background: #1e293b;
 }
 
 .mini-floor-row {
   display: flex;
-  background: #334155;
-  min-height: 65px; /* Ampliado levemente para tacto en celular */
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  min-height: 68px;
+  overflow: hidden;
 }
 
 .mini-floor-info {
-  width: 70px;
-  background: #1e293b;
-  color: #94a3b8;
+  width: 65px;
+  background: #f1f5f9;
+  color: #475569;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.7rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  border-right: 2px solid #1e293b;
+  font-size: 11px;
+  font-weight: 700;
+  border-right: 1px solid #e2e8f0;
 }
 
-/* CAROUSEL TÁCTIL: Clave para el Galaxy A16 */
 .mini-units-row {
   flex-grow: 1;
   display: flex;
-  gap: 6px;
+  gap: 8px;
   padding: 8px;
-  background: #0f172a;
-  overflow-x: auto; /* Habilita el desplazamiento horizontal con el dedo */
+  background: #ffffff;
+  overflow-x: auto;
   scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch; /* Suavizado para pantallas móviles */
+  -webkit-overflow-scrolling: touch;
 }
 
-/* Bloques de Ventanas */
+.mini-units-row::-webkit-scrollbar {
+  display: none;
+}
+
 .mini-unit-block {
-  color: #ffffff;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 6px 12px;
-  min-width: 75px; /* Evita que el flex aplaste la caja en móvil */
-  transition: all 0.2s ease;
+  padding: 6px;
+  min-width: 75px;
+  box-sizing: border-box;
 }
 
-/* Cambios Visuales cuando se entra a Modo Edición */
 .mini-unit-block.editing-mode {
-  border: 2px dashed #ffffff !important;
-  background: #1e293b !important; /* Fondo neutral oscuro para resaltar inputs */
-  color: #ffffff !important;
+  border: 2px dashed #cbd5e1 !important;
+  background: #f8fafc !important;
+  color: #334155 !important;
 }
 
-/* Estilos de Entrada de Precios */
 .price-input-wrapper {
   display: flex;
   align-items: center;
   background: #ffffff;
+  border: 1px solid #cbd5e1;
   border-radius: 6px;
   padding: 2px 4px;
   margin-top: 4px;
   width: 100%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .currency-symbol {
-  color: #0f172a;
-  font-size: 0.65rem;
-  font-weight: 800;
-  margin-right: 1px;
+  color: #475569;
+  font-size: 10px;
+  font-weight: 700;
 }
 
 .mobile-inline-input {
@@ -284,131 +252,96 @@ mat-card-actions {
   background: transparent;
   width: 100%;
   text-align: center;
-  font-size: 0.75rem;
-  font-weight: 800;
+  font-size: 11px;
+  font-weight: 700;
   color: #0f172a;
   outline: none;
-  padding: 2px 0;
 }
 
-/* ==========================================================================
-   COLORES POR ESTADO OPERATIVO
-   ========================================================================== */
+/* Colores de estado refinados */
 .mini-unit-block.vacio:not(.editing-mode) {
-  background: #a3e635 !important;
-  color: #0f172a !important;
-  border: 1px solid #65a30d;
+  background: #f7fee7 !important;
+  color: #4d7c0f !important;
+  border: 1px solid #d9f99d;
 }
 
 .mini-unit-block.ocupado:not(.editing-mode) {
-  background: #f87171 !important;
-  color: #ffffff !important;
-  border: 1px solid #dc2626;
+  background: #fef2f2 !important;
+  color: #991b1b !important;
+  border: 1px solid #fecaca;
 }
 
 .mini-unit-block.mantenimiento:not(.editing-mode) {
-  background: #64748b !important;
-  color: #ffffff !important;
-  border: 1px solid #475569;
-  opacity: 0.75;
-}
-
-/* Proporciones de Ancho */
-.mini-unit-block.Cuarto {
-  flex: 1;
-}
-.mini-unit-block.Mini-Depa {
-  flex: 1.8;
-  min-width: 85px;
-}
-.mini-unit-block.Departamento {
-  flex: 2.6;
-  min-width: 100px;
+  background: #f1f5f9 !important;
+  color: #475569 !important;
+  border: 1px solid #e2e8f0;
 }
 
 .unit-type-indicator {
-  font-size: 0.6rem;
-  font-weight: 800;
+  font-size: 10px;
+  font-weight: 700;
   text-transform: uppercase;
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 .unit-code {
-  font-size: 0.85rem;
-  font-weight: 800;
-}
-.unit-price {
-  font-size: 0.7rem;
+  font-size: 13px;
   font-weight: 700;
-  margin-top: 1px;
-}
-.empty-text {
-  color: #64748b;
-  font-size: 0.8rem;
-  font-style: italic;
-  display: flex;
-  align-items: center;
 }
 
-/* PANEL DE ACCIONES INLINE MÓVIL */
+.unit-price {
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.empty-text {
+  color: #94a3b8;
+  font-size: 13px;
+  padding-left: 8px;
+}
+
 .drawer-editable-actions {
   display: flex;
   justify-content: flex-end;
   gap: 12px;
-  margin-top: 15px;
-  border-top: 1px solid #1e293b;
-  padding-top: 15px;
+  margin-top: 16px;
+  border-top: 1px solid #e2e8f0;
+  padding-top: 16px;
 }
 
 .btn-cancel-inline {
-  color: #94a3b8 !important;
-  font-weight: 700 !important;
-  font-size: 0.8rem !important;
+  color: #64748b !important;
+  font-weight: 600 !important;
 }
 
 .btn-save-inline {
-  background: #a3e635 !important;
-  color: #0f172a !important;
-  font-weight: 800 !important;
-  font-size: 0.8rem !important;
-  border-radius: 8px !important;
-  padding: 4px 16px !important;
+  background: #84cc16 !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  border-radius: 10px !important;
 }
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Agrega estos bloques al final de tu archivo property-list.css */
 
 .inline-floor-setup-card {
-  background: #1e293b;
-  border: 2px solid #a3e635;
+  background: #ffffff;
+  border: 1px solid #d9f99d;
+  background-color: #f7fee7;
   border-radius: 14px;
   padding: 16px;
-  margin-bottom: 15px;
-  animation: slideDown 0.2s ease-out;
+  margin-bottom: 16px;
+  animation: slideDown 0.15s ease-out;
 }
 
 .inline-floor-setup-card h5 {
   margin: 0 0 12px 0;
-  color: #ffffff;
-  font-size: 0.95rem;
+  color: #3f6212;
+  font-size: 14px;
   font-weight: 700;
 }
 
 .mobile-matrix-row {
   display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 14px;
+  gap: 8px;
+  margin-bottom: 12px;
 }
 
 .qty-field {
@@ -419,65 +352,64 @@ mat-card-actions {
 }
 
 .qty-field label {
-  color: #94a3b8;
-  font-size: 0.75rem;
+  color: #4d7c0f;
+  font-size: 11px;
   font-weight: 700;
-  text-transform: uppercase;
 }
 
 .matrix-input-mobile {
   width: 100%;
-  background: #0f172a;
-  border: 1px solid #334155;
-  color: #ffffff;
-  padding: 10px;
+  background: #ffffff;
+  border: 1px solid #d9f99d;
+  color: #0f172a;
+  padding: 8px;
   border-radius: 8px;
   text-align: center;
-  font-size: 1rem;
+  font-size: 15px;
   font-weight: 700;
   outline: none;
 }
 
 .matrix-input-mobile:focus {
-  border-color: #a3e635;
-}
-
-.setup-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
+  border-color: #84cc16;
 }
 
 .btn-generate-inline {
-  background: #a3e635 !important;
-  color: #0f172a !important;
-  font-weight: 800 !important;
-  font-size: 0.75rem !important;
-  border-radius: 8px !important;
+  background: #84cc16 !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
 }
-
-/* Agrega este fragmento al final de tu property-list.css */
 
 .unit-type-indicator.clickable-status {
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(132, 204, 22, 0.1);
   padding: 2px 6px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.65rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 2px;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  transition: all 0.15s ease;
+  border-radius: 6px;
+  border: 1px solid rgba(132, 204, 22, 0.2);
 }
 
-.unit-type-indicator.clickable-status:active {
-  transform: scale(0.92);
-  background: rgba(255, 255, 255, 0.4);
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* Ajuste fino para la vista de edición en caliente */
-.mini-unit-block.editing-mode .unit-code {
-  font-size: 0.75rem;
-  margin-top: 2px;
+@media (max-width: 600px) {
+  .header-section {
+    margin-bottom: 24px;
+  }
+  .header-section h1 {
+    font-size: 22px;
+  }
+  .property-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .property-card img {
+    height: 150px;
+  }
 }

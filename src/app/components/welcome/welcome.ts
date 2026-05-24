@@ -9,13 +9,13 @@ import { environment } from '../../../environments/environment';
   standalone: true,
   imports: [MatButtonModule, MatIconModule],
   templateUrl: './welcome.html',
-  styleUrl: './welcome.css'
+  styleUrl: './welcome.css',
 })
 export class WelcomeComponent implements OnInit {
   private router = inject(Router);
 
   ngOnInit() {
-    // Si ya hay una sesión activa, saltamos la bienvenida
+    // Si el usuario ya está logueado en CuarTech, redirigir
     if (localStorage.getItem('access_token')) {
       this.router.navigate(['/dashboard']);
     }

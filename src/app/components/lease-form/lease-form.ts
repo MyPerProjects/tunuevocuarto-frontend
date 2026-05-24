@@ -6,17 +6,14 @@ import { LeaseService } from '../../services/lease';
 import { PropertyService } from '../../services/property';
 import { TenantService } from '../../services/tenant';
 
-import { Property, Unit } from '../../models/property.model';
+import { Property, Unit, Floor } from '../../models/property.model';
 import { Tenant } from '../../models/tenant.model';
 import { forkJoin } from 'rxjs';
 
-// Material Core & Inputs
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-
-// MEJORA: Componentes oficiales de Angular Material para Calendarios Estrictos
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -34,8 +31,8 @@ import { MatInputModule } from '@angular/material/input';
     MatButtonModule,
     MatCardModule,
     MatIconModule,
-    MatDatepickerModule, // Requerido para <mat-datepicker>
-    MatNativeDateModule, // Requerido para parsear fechas nativas JS
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   templateUrl: './lease-form.html',
   styleUrl: './lease-form.css',
@@ -49,11 +46,13 @@ export class LeaseFormComponent implements OnInit {
 
   properties: Property[] = [];
   tenants: Tenant[] = [];
-  availableUnits: Unit[] = [];
+
+  availableFloors: Floor[] = []; // Colección de pisos dinámicos
+  availableUnits: Unit[] = []; // Colección de habitaciones dinámicas
 
   selectedPropertyId?: number;
+  selectedFloorId?: number; // Variable de control para el piso elegido
 
-  // El datepicker de Angular Material trabaja nativamente con objetos Date en memoria
   contract = {
     tenantId: 0,
     unitId: 0,
@@ -83,22 +82,33 @@ export class LeaseFormComponent implements OnInit {
     });
   }
 
+  // Paso 1: Al cambiar de propiedad, extraemos sus pisos que tengan cuartos vacíos
   onPropertyChange(propertyId: number) {
+    this.availableFloors = [];
     this.availableUnits = [];
+    this.selectedFloorId = undefined;
     this.contract.unitId = 0;
     this.contract.monthlyRent = 0;
 
     const currentProperty = this.properties.find((p) => p.id === propertyId);
-    if (currentProperty) {
-      const unitsList: Unit[] = [];
-      currentProperty.floors.forEach((floor) => {
-        floor.units.forEach((unit) => {
-          if (unit.status === 'vacio') {
-            unitsList.push(unit);
-          }
-        });
-      });
-      this.availableUnits = unitsList;
+    if (currentProperty && currentProperty.floors) {
+      // Solo mostramos los pisos que tengan al menos una habitación con estado 'vacio'
+      this.availableFloors = currentProperty.floors.filter((floor) =>
+        floor.units.some((unit) => unit.status === 'vacio'),
+      );
+    }
+    this.cdr.detectChanges();
+  }
+
+  // Paso 2: Al cambiar de piso, extraemos únicamente sus cuartos disponibles
+  onFloorChange(floorId: number) {
+    this.availableUnits = [];
+    this.contract.unitId = 0;
+    this.contract.monthlyRent = 0;
+
+    const currentFloor = this.availableFloors.find((f) => f.id === floorId);
+    if (currentFloor && currentFloor.units) {
+      this.availableUnits = currentFloor.units.filter((unit) => unit.status === 'vacio');
     }
     this.cdr.detectChanges();
   }
@@ -130,7 +140,7 @@ export class LeaseFormComponent implements OnInit {
 
     const payload = {
       ...this.contract,
-      startDate: formattedStartDate, // Reemplazamos por la cadena limpia
+      startDate: formattedStartDate,
     };
 
     this.leaseService.create(payload).subscribe({

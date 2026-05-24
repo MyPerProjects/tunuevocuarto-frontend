@@ -1,22 +1,31 @@
 <div class="form-container">
-  <mat-card class="form-card mat-elevation-z4">
+  <mat-card class="form-card">
     <div class="form-header">
-      <button mat-icon-button (click)="goBack()">
+      <button mat-icon-button (click)="goBack()" type="button">
         <mat-icon>arrow_back</mat-icon>
       </button>
       <h2>{{ isEditMode ? 'Actualizar Inquilino' : 'Nuevo Inquilino' }}</h2>
     </div>
 
-    <form #tenantForm="ngForm" (ngSubmit)="saveTenant()" class="mobile-form">
+    <form
+      #tenantForm="ngForm"
+      (ngSubmit)="tenantForm.form.valid && saveTenant()"
+      class="mobile-form"
+      novalidate
+    >
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Nombres</mat-label>
         <input
           matInput
           [(ngModel)]="tenant.firstName"
           name="firstName"
+          #firstName="ngModel"
           required
           placeholder="Ej: Luis Diego"
         />
+        <mat-error *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
+          El nombre es un campo obligatorio.
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="full-width">
@@ -25,9 +34,13 @@
           matInput
           [(ngModel)]="tenant.lastName"
           name="lastName"
+          #lastName="ngModel"
           required
           placeholder="Ej: Camus Dominguez"
         />
+        <mat-error *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">
+          El apellido es un campo obligatorio.
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="full-width">
@@ -36,39 +49,47 @@
           matInput
           [(ngModel)]="tenant.dni"
           name="dni"
+          #dni="ngModel"
           required
           maxlength="8"
+          minlength="8"
           pattern="\d*"
           placeholder="8 dígitos obligatorios"
         />
+        <mat-error *ngIf="dni.invalid && (dni.dirty || dni.touched)">
+          El DNI debe contener exactamente 8 números.
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Celular (WhatsApp)</mat-label>
-
         <span matPrefix class="peru-prefix">+51 &nbsp;</span>
-
         <input
           matInput
           [(ngModel)]="tenant.phoneNumber"
           name="phoneNumber"
+          #phoneNumber="ngModel"
           type="tel"
           required
           maxlength="9"
+          minlength="9"
           pattern="9\d{8}"
           placeholder="987654321"
         />
-
-        <mat-icon matSuffix color="primary">phone_iphone</mat-icon>
-        <mat-hint>Solo los 9 dígitos del celular</mat-hint>
+        <mat-icon matSuffix class="phone-suffix-icon">phone_iphone</mat-icon>
+        <mat-hint class="hint-text">Solo los 9 dígitos del celular</mat-hint>
+        <mat-error *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)">
+          Debe empezar con 9 y tener 9 dígitos en total.
+        </mat-error>
       </mat-form-field>
 
       <div class="form-actions">
         <button mat-stroked-button type="button" (click)="goBack()" class="btn-cancel">
           CANCELAR
         </button>
-        <button mat-flat-button type="submit" class="btn-submit">
-          <mat-icon>save</mat-icon> {{ isEditMode ? 'ACTUALIZAR' : 'REGISTRAR' }}
+        <button mat-flat-button type="submit" class="btn-submit" [disabled]="tenantForm.invalid">
+          <mat-icon>save</mat-icon>
+          <span>{{ isEditMode ? 'ACTUALIZAR' : 'REGISTRAR' }}</span>
         </button>
       </div>
     </form>

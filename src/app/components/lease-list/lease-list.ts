@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -7,7 +7,6 @@ import { PropertyService } from '../../services/property';
 import { Lease } from '../../models/lease.model';
 import { Property } from '../../models/property.model';
 
-// Material
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -48,6 +47,14 @@ export class LeaseListComponent implements OnInit {
 
   displayedColumns: string[] = ['tenant', 'room', 'rent', 'status', 'actions'];
 
+  isMobile: boolean = window.innerWidth <= 768;
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.isMobile = event.target.innerWidth <= 768;
+    this.cdr.detectChanges();
+  }
+
   ngOnInit() {
     this.loadFiltersData();
     this.applyFilters();
@@ -61,6 +68,18 @@ export class LeaseListComponent implements OnInit {
       },
       error: (err) => console.error('Error al cargar propiedades para filtros', err),
     });
+  }
+
+  /**
+   * 🔥 INTERCEPTOR INTELIGENTE DE FILTROS:
+   * Si el usuario selecciona contratos finalizados, reseteamos el estado del recibo
+   * ya que no tiene coherencia cruzar flujos históricos con alertas de cobranza activas.
+   */
+  onStatusChange() {
+    if (this.selectedStatus === 'finalizado') {
+      this.selectedPaymentStatus = '';
+    }
+    this.applyFilters();
   }
 
   applyFilters() {
@@ -79,11 +98,9 @@ export class LeaseListComponent implements OnInit {
       });
   }
 
-  /**
-   * OPCIÓN A: Freno de mano de UX. Abre una advertencia explícita en el Galaxy A16
-   * para prevenir que se envíen mensajes de cobranza o confirmación por error.
-   */
   togglePaymentStatus(lease: Lease) {
+    if (lease.id === undefined) return;
+
     const nextStatus = lease.paymentStatus === 'al_dia' ? 'pendiente' : 'al_dia';
 
     const mensajeAlerta =
@@ -101,7 +118,9 @@ export class LeaseListComponent implements OnInit {
     }
   }
 
-  terminateContract(id: number) {
+  terminateContract(id: number | undefined) {
+    if (id === undefined) return;
+
     if (
       confirm(
         '¿Estás seguro de finalizar este contrato? Se registrará la fecha de salida y el cuarto volverá a estar DISPONIBLE de inmediato.',
@@ -117,7 +136,9 @@ export class LeaseListComponent implements OnInit {
     }
   }
 
-  deleteContract(id: number) {
+  deleteContract(id: number | undefined) {
+    if (id === undefined) return;
+
     if (
       confirm(
         '🚨 ¿Deseas ELIMINAR permanentemente este contrato? Esto liberará la habitación a estado disponible y borrará el historial de raíz.',

@@ -1,20 +1,28 @@
 <div class="form-container">
-  <mat-card class="form-card mat-elevation-z4">
+  <mat-card class="form-card">
     <div class="form-header">
-      <button mat-icon-button (click)="goBack()">
+      <button mat-icon-button (click)="goBack()" type="button">
         <mat-icon>arrow_back</mat-icon>
       </button>
       <h2>Generar Nuevo Contrato</h2>
     </div>
 
-    <form #leaseForm="ngForm" (ngSubmit)="saveContract()" class="mobile-form">
+    <form
+      #leaseForm="ngForm"
+      (ngSubmit)="leaseForm.form.valid && saveContract()"
+      class="mobile-form"
+      novalidate
+    >
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Seleccionar Inquilino</mat-label>
-        <mat-select [(ngModel)]="contract.tenantId" name="tenantId" required>
+        <mat-select [(ngModel)]="contract.tenantId" name="tenantId" #tenantId="ngModel" required>
           <mat-option *ngFor="let t of tenants" [value]="t.id">
             {{ t.firstName }} {{ t.lastName }} (DNI: {{ t.dni }})
           </mat-option>
         </mat-select>
+        <mat-error *ngIf="tenantId.invalid && (tenantId.dirty || tenantId.touched)">
+          Debes asignar un inquilino al contrato.
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="full-width">
@@ -22,11 +30,33 @@
         <mat-select
           [(ngModel)]="selectedPropertyId"
           name="propertyId"
+          #propertyId="ngModel"
           required
           (selectionChange)="onPropertyChange($event.value)"
         >
           <mat-option *ngFor="let p of properties" [value]="p.id">{{ p.name }}</mat-option>
         </mat-select>
+        <mat-error *ngIf="propertyId.invalid && (propertyId.dirty || propertyId.touched)">
+          Seleccionar el inmueble base es obligatorio.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Seleccionar Piso</mat-label>
+        <mat-select
+          [(ngModel)]="selectedFloorId"
+          name="floorId"
+          required
+          [disabled]="!selectedPropertyId || availableFloors.length === 0"
+          (selectionChange)="onFloorChange($event.value)"
+        >
+          <mat-option *ngFor="let f of availableFloors" [value]="f.id">
+            Piso {{ f.level }}
+          </mat-option>
+        </mat-select>
+        <mat-hint class="hint-text" *ngIf="selectedPropertyId && availableFloors.length === 0">
+          No hay pisos con cuartos vacíos en este edificio
+        </mat-hint>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="full-width">
@@ -34,17 +64,18 @@
         <mat-select
           [(ngModel)]="contract.unitId"
           name="unitId"
+          #unitId="ngModel"
           required
-          [disabled]="availableUnits.length === 0"
+          [disabled]="!selectedFloorId || availableUnits.length === 0"
           (selectionChange)="onUnitChange($event.value)"
         >
           <mat-option *ngFor="let u of availableUnits" [value]="u.id">
             {{ u.unitNumber }} - {{ u.type }} (S/ {{ u.price }})
           </mat-option>
         </mat-select>
-        <mat-hint *ngIf="selectedPropertyId && availableUnits.length === 0">
-          No hay cuartos vacíos en este edificio
-        </mat-hint>
+        <mat-error *ngIf="unitId.invalid && (unitId.dirty || unitId.touched)">
+          Debes vincular una unidad disponible.
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="full-width">
@@ -54,12 +85,16 @@
           [matDatepicker]="picker"
           [(ngModel)]="contract.startDate"
           name="startDate"
+          #startDate="ngModel"
           required
           placeholder="Selecciona una fecha"
         />
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
-        <mat-hint>Permite regularizar ingresos de contratos históricos</mat-hint>
+        <mat-hint class="hint-text">Permite regularizar ingresos de contratos históricos</mat-hint>
+        <mat-error *ngIf="startDate.invalid && (startDate.dirty || startDate.touched)">
+          La fecha de inicio es requerida.
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="full-width">
@@ -69,17 +104,22 @@
           type="number"
           [(ngModel)]="contract.monthlyRent"
           name="monthlyRent"
+          #monthlyRent="ngModel"
           required
           min="1"
         />
+        <mat-error *ngIf="monthlyRent.invalid && (monthlyRent.dirty || monthlyRent.touched)">
+          Ingresa un monto de alquiler válido mayor a 0.
+        </mat-error>
       </mat-form-field>
 
       <div class="form-actions">
         <button mat-stroked-button type="button" (click)="goBack()" class="btn-cancel">
           CANCELAR
         </button>
-        <button mat-flat-button type="submit" class="btn-submit">
-          <mat-icon>gavel</mat-icon> FIRMAR CONTRATO
+        <button mat-flat-button type="submit" class="btn-submit" [disabled]="leaseForm.invalid">
+          <mat-icon>gavel</mat-icon>
+          <span>FIRMAR CONTRATO</span>
         </button>
       </div>
     </form>

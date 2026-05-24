@@ -7,55 +7,78 @@
     </button>
   </div>
 
-  <mat-card class="table-card mat-elevation-z3">
-    <div class="responsive-table-container">
-      <table mat-table [dataSource]="tenants" class="custom-table">
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef>Inquilino</th>
-          <td mat-cell *matCellDef="let tenant" class="font-bold-name">
-            {{ tenant.firstName }} {{ tenant.lastName }}
-          </td>
-        </ng-container>
+  @if (!isMobile) {
+    <mat-card class="table-card">
+      <div class="responsive-table-container">
+        <table mat-table [dataSource]="tenants" class="custom-table">
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Inquilino</th>
+            <td mat-cell *matCellDef="let tenant" class="font-bold-name">
+              {{ tenant.firstName }} {{ tenant.lastName }}
+            </td>
+          </ng-container>
 
-        <ng-container matColumnDef="dni">
-          <th mat-header-cell *matHeaderCellDef>DNI</th>
-          <td mat-cell *matCellDef="let tenant">{{ tenant.dni }}</td>
-        </ng-container>
+          <ng-container matColumnDef="dni">
+            <th mat-header-cell *matHeaderCellDef>DNI</th>
+            <td mat-cell *matCellDef="let tenant">{{ tenant.dni }}</td>
+          </ng-container>
 
-        <ng-container matColumnDef="phone">
-          <th mat-header-cell *matHeaderCellDef>Teléfono</th>
-          <td mat-cell *matCellDef="let tenant" class="phone-cell">{{ tenant.phoneNumber }}</td>
-        </ng-container>
+          <ng-container matColumnDef="phone">
+            <th mat-header-cell *matHeaderCellDef>Teléfono</th>
+            <td mat-cell *matCellDef="let tenant" class="phone-cell">{{ tenant.phoneNumber }}</td>
+          </ng-container>
 
-        <ng-container matColumnDef="actions">
-          <th mat-header-cell *matHeaderCellDef class="text-center">Acciones</th>
-          <td mat-cell *matCellDef="let tenant" class="text-center actions-cell">
-            <button
-              mat-icon-button
-              class="btn-edit"
-              (click)="goToEdit(tenant.id)"
-              matTooltip="Editar datos"
-            >
-              <mat-icon>edit</mat-icon>
-            </button>
-            <button
-              mat-icon-button
-              color="warn"
-              (click)="deleteTenant(tenant.id)"
-              matTooltip="Eliminar de raíz"
-            >
-              <mat-icon>delete</mat-icon>
-            </button>
-          </td>
-        </ng-container>
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef class="text-center">Acciones</th>
+            <td mat-cell *matCellDef="let tenant" class="text-center actions-cell">
+              <div class="actions-group-desktop">
+                <button mat-icon-button class="btn-edit" (click)="goToEdit(tenant.id)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="deleteTenant(tenant.id)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-      </table>
-
-      <div *ngIf="tenants.length === 0" class="empty-state-text">
-        No hay inquilinos registrados en el sistema.
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
       </div>
+    </mat-card>
+  } @else {
+    <div class="mobile-cards-container">
+      <mat-card *ngFor="let tenant of tenants" class="tenant-mobile-card">
+        <div class="card-row font-bold-name-mobile">
+          {{ tenant.firstName }} {{ tenant.lastName }}
+        </div>
+
+        <div class="card-row">
+          <span class="label-text">DNI</span>
+          <span class="value-text">{{ tenant.dni }}</span>
+        </div>
+
+        <div class="card-row">
+          <span class="label-text">Teléfono</span>
+          <span class="value-text phone-cell">{{ tenant.phoneNumber }}</span>
+        </div>
+
+        <div class="card-actions-mobile">
+          <button mat-button class="btn-edit-mobile" (click)="goToEdit(tenant.id)">
+            <mat-icon>edit</mat-icon>
+            <span>Editar Datos</span>
+          </button>
+          <button mat-button class="btn-delete-mobile" (click)="deleteTenant(tenant.id)">
+            <mat-icon>delete</mat-icon>
+            <span>Eliminar Registro</span>
+          </button>
+        </div>
+      </mat-card>
     </div>
-  </mat-card>
+  }
+
+  <div *ngIf="tenants.length === 0" class="empty-state-text">
+    No hay inquilinos registrados en el sistema.
+  </div>
 </div>

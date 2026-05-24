@@ -1,39 +1,113 @@
 .sidenav-container {
   height: 100vh;
+  background-color: #f8fafc;
 }
 
 .sidenav {
-  width: 260px;
-  background-color: #f8f9fa;
-  border-right: 1px solid #ddd;
+  width: 265px;
+  background-color: #ffffff;
+  border-right: 1px solid #f1f5f9 !important;
 }
 
 .logo-section {
-  padding: 30px 20px;
+  padding: 32px 24px;
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 12px;
+}
+
+.main-logo {
+  color: #84cc16;
+  font-size: 32px;
+  width: 32px;
+  height: 32px;
 }
 
 .logo-text {
-  font-size: 20px;
-  font-weight: bold;
-  color: #3f51b5;
-  letter-spacing: 1px;
+  font-size: 22px;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.5px;
 }
 
-.main-content {
-  padding: 20px;
-  background-color: #fafafa;
-  min-height: calc(100vh - 64px);
+.nav-list {
+  padding: 0 12px !important;
+}
+
+.nav-list a {
+  border-radius: 12px;
+  margin-bottom: 4px;
+  height: 48px !important;
+  transition: all 0.2s ease;
+}
+
+.nav-icon {
+  color: #64748b;
+  transition: color 0.2s ease;
+}
+
+.nav-title {
+  color: #334155;
+  font-weight: 500;
+  font-size: 14px;
 }
 
 .active-link {
-  background-color: rgba(63, 81, 181, 0.1);
-  color: #3f51b5 !important;
-  border-left: 4px solid #3f51b5;
+  background-color: #f7fee7 !important;
+  color: #4d7c0f !important;
+}
+
+.active-link .nav-icon {
+  color: #84cc16 !important;
+}
+
+.active-link .nav-title {
+  color: #0f172a !important;
+  font-weight: 600;
+}
+
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.main-toolbar {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-bottom: 1px solid #f1f5f9;
+  height: 64px;
+  padding: 0 16px !important;
+}
+
+.toggle-btn,
+.toolbar-action {
+  color: #475569 !important;
+}
+
+.toolbar-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-left: 8px;
 }
 
 .spacer {
   flex: 1 1 auto;
+}
+
+.main-content {
+  padding: 24px;
+  background-color: #f8fafc;
+  min-height: calc(100vh - 64px);
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding: 16px;
+  }
+  .sidenav {
+    border-right: none !important;
+    box-shadow: 16px 0 32px rgba(0, 0, 0, 0.05);
+  }
 }

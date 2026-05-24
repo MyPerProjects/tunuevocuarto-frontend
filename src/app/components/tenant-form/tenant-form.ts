@@ -5,7 +5,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TenantService } from '../../services/tenant';
 import { Tenant } from '../../models/tenant.model';
 
-// Material
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -36,7 +35,6 @@ export class TenantFormComponent implements OnInit {
   tenantId?: number;
   isEditMode = false;
 
-  // Objeto base ligado al formulario
   tenant: Tenant = {
     firstName: '',
     lastName: '',
@@ -45,7 +43,6 @@ export class TenantFormComponent implements OnInit {
   };
 
   ngOnInit() {
-    // Verificamos si la ruta viene con un parámetro id (Modo Edición)
     const idParam = this.route.snapshot.paramMap.get('id');
     if (idParam) {
       this.tenantId = Number(idParam);
@@ -54,14 +51,11 @@ export class TenantFormComponent implements OnInit {
     }
   }
 
-  // Abre tu src/app/components/tenant-form/tenant-form.ts y reemplaza estos dos métodos:
-
   loadTenantData(id: number) {
     this.tenantService.getById(id).subscribe({
       next: (data) => {
         this.tenant = data;
 
-        // CORRECCIÓN DE CARGA: Si el número de la DB empieza con '+51', lo limpiamos para la vista
         if (this.tenant.phoneNumber && this.tenant.phoneNumber.startsWith('+51')) {
           this.tenant.phoneNumber = this.tenant.phoneNumber.replace('+51', '').trim();
         }
@@ -92,19 +86,17 @@ export class TenantFormComponent implements OnInit {
       return;
     }
 
-    // VALIDACIÓN LOCAL: Verificar que tenga exactamente 9 números y empiece con 9 (estándar Perú)
     const phoneClean = this.tenant.phoneNumber.trim();
     if (phoneClean.length !== 9 || !phoneClean.startsWith('9')) {
       alert('El número de celular debe tener 9 dígitos y empezar con 9.');
       return;
     }
 
-    // CLAVE DE ALTA INGENIERÍA: Concatenamos el prefijo automáticamente antes de viajar a NestJS
     const bodyPayload = {
       firstName: this.tenant.firstName,
       lastName: this.tenant.lastName,
       dni: this.tenant.dni,
-      phoneNumber: `+51${phoneClean}`, // Guarda "+51987654321" limpio en Postgres
+      phoneNumber: `+51${phoneClean}`,
     };
 
     if (this.isEditMode && this.tenantId) {

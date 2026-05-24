@@ -1,57 +1,53 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
-
-h1,
-th,
-td,
-span,
-button {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-}
-
 .list-wrapper {
-  padding: 16px;
+  padding: 24px;
+  background: #f8fafc;
+  min-height: 100vh;
+  box-sizing: border-box;
+  font-family:
+    'Inter',
+    -apple-system,
+    sans-serif;
 }
 
 .header-section {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
+  margin-bottom: 32px;
 }
 
 .header-section h1 {
-  font-size: 1.8rem;
+  font-size: 28px;
   font-weight: 800;
   color: #0f172a;
   margin: 0;
   letter-spacing: -0.5px;
+  line-height: 1.3;
 }
 
 .btn-limon-fab {
-  background-color: #a3e635 !important;
-  color: #0f172a !important;
-  font-weight: 700 !important;
-  border-radius: 12px !important;
-  box-shadow: 0 6px 15px rgba(163, 230, 53, 0.3) !important;
+  background-color: #84cc16 !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  border-radius: 16px !important;
+  box-shadow: 0 4px 12px rgba(132, 204, 22, 0.25) !important;
 }
 
 .table-card {
-  border-radius: 20px;
+  border-radius: 24px;
   overflow: hidden;
-  border: none;
-  background: white;
+  background: #ffffff;
+  border: 1px solid #f1f5f9 !important;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05) !important;
+  padding: 16px !important;
 }
 
-/* RESPONSIVE SCROLL: Evita que la tabla colapse a lo ancho en pantallas móviles */
 .responsive-table-container {
   width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch; /* Suavizado táctil para Android */
 }
 
 .custom-table {
   width: 100%;
-  min-width: 600px; /* Clave: Fuerza un ancho mínimo interno para habilitar el deslizamiento cómodo */
   background: transparent;
 }
 
@@ -60,17 +56,19 @@ tr.mat-mdc-header-row {
 }
 
 th.mat-mdc-header-cell {
-  color: #64748b !important;
+  color: #475569 !important;
   font-weight: 700 !important;
-  font-size: 0.85rem !important;
+  font-size: 13px !important;
   text-transform: uppercase;
+  letter-spacing: 0.5px;
   padding: 16px !important;
+  border-bottom: 2px solid #e2e8f0 !important;
 }
 
 td.mat-mdc-cell {
   color: #334155 !important;
-  font-size: 0.95rem !important;
-  padding: 16px !important;
+  font-size: 15px !important;
+  padding: 20px 16px !important;
   border-bottom: 1px solid #f1f5f9;
 }
 
@@ -85,13 +83,14 @@ td.mat-mdc-cell {
   letter-spacing: 0.3px;
 }
 
-.actions-cell {
-  white-space: nowrap; /* Evita que los botones de acción se partan en dos filas */
+.actions-group-desktop {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
 }
 
 .btn-edit {
   color: #475569 !important;
-  margin-right: 4px;
 }
 
 .text-center {
@@ -101,7 +100,108 @@ td.mat-mdc-cell {
 .empty-state-text {
   text-align: center;
   color: #94a3b8;
-  padding: 40px;
+  padding: 48px;
   font-style: italic;
-  font-size: 0.95rem;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   ESTILOS EXCLUSIVOS PARA MÓVIL (GALAXY A16)
+   ========================================================================== */
+.mobile-cards-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.tenant-mobile-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 24px 20px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02) !important;
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Altura y separación vertical impecable */
+}
+
+.card-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  line-height: 1.6;
+}
+
+.font-bold-name-mobile {
+  justify-content: center;
+  font-size: 19px;
+  font-weight: 700;
+  color: #0f172a;
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 14px;
+  margin-bottom: 6px;
+}
+
+.label-text {
+  font-size: 13px;
+  font-weight: 600;
+  color: #475569;
+}
+
+.value-text {
+  font-size: 15px;
+  font-weight: 500;
+  color: #1e293b;
+}
+
+.card-actions-mobile {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-top: 1px dashed #e2e8f0;
+  padding-top: 20px;
+  margin-top: 6px;
+}
+
+.btn-edit-mobile,
+.btn-delete-mobile {
+  width: 100%;
+  height: 48px;
+  border-radius: 14px !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+}
+
+.btn-edit-mobile {
+  background: #f1f5f9 !important;
+  color: #334155 !important;
+}
+
+.btn-delete-mobile {
+  background: #fef2f2 !important;
+  color: #dc2626 !important;
+}
+
+@media (max-width: 768px) {
+  .list-wrapper {
+    padding: 20px 16px;
+  }
+  .header-section {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .header-section h1 {
+    font-size: 22px;
+  }
+  .btn-limon-fab {
+    width: 100%;
+    height: 48px !important;
+  }
 }

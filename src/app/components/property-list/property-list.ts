@@ -107,6 +107,16 @@ export class PropertyListComponent implements OnInit {
   generateInlineFloorUnits(property: UIProperty) {
     if (!property.newFloorNumbers) return;
 
+    const totalUnits =
+      Number(property.newFloorNumbers.roomCount) +
+      Number(property.newFloorNumbers.miniCount) +
+      Number(property.newFloorNumbers.deptCount);
+
+    if (totalUnits <= 0) {
+      alert('Debes agregar al menos un cuarto, mini-depa o departamento para generar el piso.');
+      return;
+    }
+
     const nextFloorLevel = property.floors.length + 1;
     const generatedUnits: Unit[] = [];
     let currentUnitIndex = 1;

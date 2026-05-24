@@ -1,51 +1,160 @@
 .welcome-container {
-  height: 100vh;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Un gradiente más vivo */
+  background-color: #f8fafc;
+  padding: 24px;
+  box-sizing: border-box;
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
 }
 
 .hero-card {
-  background: white;
-  padding: 48px;
-  border-radius: 24px;
+  background: #ffffff;
+  padding: 48px 32px;
+  border-radius: 32px;
   text-align: center;
+  width: 100%;
   max-width: 400px;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f1f5f9;
 }
 
-.main-logo {
-  font-size: 80px;
-  width: 80px;
-  height: 80px;
-  color: #3f51b5;
-  margin-bottom: 24px;
-}
-
-h1 {
-  font-size: 28px;
-  font-weight: 800;
-  color: #1a202c;
+.logo-wrapper {
   margin-bottom: 16px;
 }
 
-p {
-  color: #4a5568;
-  margin-bottom: 32px;
-  line-height: 1.5;
+.main-logo {
+  font-size: 56px;
+  width: 56px;
+  height: 56px;
+  color: #84cc16;
+}
+
+h1 {
+  font-size: 32px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+  letter-spacing: -1px;
+}
+
+.tagline {
+  color: #84cc16;
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 4px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.content-body {
+  margin: 32px 0;
+}
+
+.description {
+  color: #64748b;
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.features-grid {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.feature-tag {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #f1f5f9;
+  padding: 6px 12px;
+  border-radius: 100px;
+}
+
+.feature-tag mat-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  color: #84cc16;
+}
+
+.feature-tag span {
+  font-size: 13px;
+  font-weight: 500;
+  color: #334155;
+}
+
+.auth-actions {
+  width: 100%;
+  margin-top: 8px;
 }
 
 .google-btn {
   width: 100%;
-  height: 50px;
-  border-radius: 12px !important;
-  font-size: 16px !important;
+  height: 56px;
+  border-radius: 16px !important;
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+  transition: all 0.2s ease !important;
+}
+
+.btn-content {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 12px;
-  background-color: white !important;
-  color: #1f2937 !important;
-  border: 1px solid #d1d5db !important;
+  width: 100%;
+}
+
+.google-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.btn-text {
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  color: #334155 !important;
+}
+
+.google-btn:active {
+  transform: scale(0.98);
+  background-color: #f8fafc !important;
+}
+
+.footer-simple {
+  margin-top: 40px;
+}
+
+.footer-simple p {
+  font-size: 12px;
+  color: #cbd5e1;
+  margin: 0;
+}
+
+@media (max-width: 480px) {
+  .welcome-container {
+    padding: 16px;
+  }
+
+  .hero-card {
+    padding: 40px 24px;
+    border-radius: 24px;
+    box-shadow: none;
+    border: none;
+    background: transparent;
+  }
 }

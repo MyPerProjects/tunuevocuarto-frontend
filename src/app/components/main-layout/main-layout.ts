@@ -1,9 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-
-// Angular Material
-import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -19,19 +17,35 @@ import { MatButtonModule } from '@angular/material/button';
     MatListModule,
     MatToolbarModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
   ],
   templateUrl: './main-layout.html',
-  styleUrl: './main-layout.css'
+  styleUrl: './main-layout.css',
 })
 export class MainLayoutComponent {
-  // Lista de secciones indispensables
+  private screenWidth: number = window.innerWidth;
+
   menuItems = [
     { icon: 'dashboard', label: 'Dashboard', route: '/dashboard' },
     { icon: 'business', label: 'Propiedades', route: '/properties' },
     { icon: 'people', label: 'Inquilinos', route: '/tenants' },
     { icon: 'description', label: 'Contratos', route: '/leases' },
     { icon: 'smartphone', label: 'Vincular con Whatsapp', route: '/whatsapp' },
-    { icon: 'person', label: 'Mi Perfil', route: '/profile' }
+    { icon: 'person', label: 'Mi Perfil', route: '/profile' },
   ];
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.screenWidth = event.target.innerWidth;
+  }
+
+  isMobile(): boolean {
+    return this.screenWidth <= 768;
+  }
+
+  closeOnMobile(drawer: MatSidenav) {
+    if (this.isMobile()) {
+      drawer.close();
+    }
+  }
 }

@@ -1,11 +1,10 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services/user';
 import { UserProfile } from '../../models/user.model';
 import { Router } from '@angular/router';
 
-// Material
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -36,6 +35,7 @@ export class ProfileComponent implements OnInit {
   private userService = inject(UserService);
   private snackBar = inject(MatSnackBar);
   private router = inject(Router);
+  private cdr = inject(ChangeDetectorRef);
 
   profileForm: FormGroup;
   loading = false;
@@ -45,8 +45,12 @@ export class ProfileComponent implements OnInit {
       firstName: [{ value: '', disabled: true }],
       lastName: [{ value: '', disabled: true }],
       email: [{ value: '', disabled: true }],
-      yapeNumber: ['', [Validators.required, Validators.pattern('^[0-9]{9}$')]],
-      bcpAccount: [''],
+
+      // Yape: Campo obligatorio, inicia con 9 y tiene 9 dígitos exactamente
+      yapeNumber: ['', [Validators.required, Validators.pattern(/^9\d{8}$/)]],
+
+      // BCP: Opcional, pero si se escribe algo debe cumplir con los 14 dígitos numéricos
+      bcpAccount: ['', [Validators.pattern(/^\d{14}$/)]],
     });
   }
 
@@ -58,6 +62,7 @@ export class ProfileComponent implements OnInit {
     this.userService.getProfile().subscribe({
       next: (user) => {
         this.profileForm.patchValue(user);
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.error('Error al cargar perfil real de la base de datos:', err);
@@ -71,10 +76,13 @@ export class ProfileComponent implements OnInit {
   saveChanges() {
     if (this.profileForm.valid) {
       this.loading = true;
+      this.cdr.detectChanges();
+
       this.userService.updateProfile(this.profileForm.value).subscribe({
         next: () => {
           this.snackBar.open('Perfil actualizado correctamente', 'Cerrar', { duration: 3000 });
           this.loading = false;
+          this.cdr.detectChanges();
         },
         error: (err) => {
           console.error('Error al guardar mutaciones del perfil:', err);
@@ -82,17 +90,15 @@ export class ProfileComponent implements OnInit {
             duration: 3000,
           });
           this.loading = false;
+          this.cdr.detectChanges();
         },
       });
     }
   }
 
   logout() {
-    // Purgamos de raíz todas las llaves de sesión multipropietario para evitar rastros remanentes
     localStorage.removeItem('access_token');
     localStorage.removeItem('user_id');
-
-    // Redirección inmediata a la pantalla de bienvenida
     this.router.navigate(['/welcome']);
   }
 }

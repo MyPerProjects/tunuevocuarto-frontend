@@ -7,7 +7,7 @@
     </button>
   </div>
 
-  <mat-card class="filter-card mat-elevation-z2">
+  <mat-card class="filter-card">
     <div class="filter-grid-mobile">
       <mat-form-field appearance="outline" class="filter-field">
         <mat-label>Filtrar por Propiedad</mat-label>
@@ -19,16 +19,24 @@
 
       <mat-form-field appearance="outline" class="filter-field">
         <mat-label>Estado Contrato</mat-label>
-        <mat-select [(ngModel)]="selectedStatus" (selectionChange)="applyFilters()">
+        <mat-select [(ngModel)]="selectedStatus" (selectionChange)="onStatusChange()">
           <mat-option value="">-- Todos --</mat-option>
           <mat-option value="activo">Activos</mat-option>
           <mat-option value="finalizado">Finalizados</mat-option>
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="filter-field">
+      <mat-form-field
+        appearance="outline"
+        class="filter-field"
+        [ngClass]="{ 'field-disabled': selectedStatus === 'finalizado' }"
+      >
         <mat-label>Estado Recibo</mat-label>
-        <mat-select [(ngModel)]="selectedPaymentStatus" (selectionChange)="applyFilters()">
+        <mat-select
+          [(ngModel)]="selectedPaymentStatus"
+          (selectionChange)="applyFilters()"
+          [disabled]="selectedStatus === 'finalizado'"
+        >
           <mat-option value="">-- Todos --</mat-option>
           <mat-option value="al_dia">Al día</mat-option>
           <mat-option value="pendiente">Pendientes</mat-option>
@@ -37,78 +45,135 @@
     </div>
   </mat-card>
 
-  <mat-card class="table-card mat-elevation-z3">
-    <div class="responsive-table-container">
-      <table mat-table [dataSource]="leases" class="custom-table">
-        <ng-container matColumnDef="tenant">
-          <th mat-header-cell *matHeaderCellDef>Inquilino</th>
-          <td mat-cell *matCellDef="let lease" class="tenant-cell">
-            <span class="main-name"
-              >{{ lease.tenant?.firstName }} {{ lease.tenant?.lastName }}</span
-            >
-            <span class="sub-dni">DNI: {{ lease.tenant?.dni }}</span>
-          </td>
-        </ng-container>
+  @if (!isMobile) {
+    <mat-card class="table-card">
+      <div class="responsive-table-container">
+        <table mat-table [dataSource]="leases" class="custom-table">
+          <ng-container matColumnDef="tenant">
+            <th mat-header-cell *matHeaderCellDef>Inquilino</th>
+            <td mat-cell *matCellDef="let lease" class="tenant-cell">
+              <span class="main-name"
+                >{{ lease.tenant?.firstName }} {{ lease.tenant?.lastName }}</span
+              >
+              <span class="sub-dni">DNI: {{ lease.tenant?.dni }}</span>
+            </td>
+          </ng-container>
 
-        <ng-container matColumnDef="room">
-          <th mat-header-cell *matHeaderCellDef>Ubicación</th>
-          <td mat-cell *matCellDef="let lease" class="room-cell">
-            <span class="room-code">{{ lease.unit?.unitNumber }}</span>
-            <span class="property-subtext">{{ lease.unit?.floor?.property?.name }}</span>
-          </td>
-        </ng-container>
+          <ng-container matColumnDef="room">
+            <th mat-header-cell *matHeaderCellDef>Ubicación</th>
+            <td mat-cell *matCellDef="let lease" class="room-cell">
+              <span class="room-code">{{ lease.unit?.unitNumber }}</span>
+              <span class="property-subtext">{{ lease.unit?.floor?.property?.name }}</span>
+            </td>
+          </ng-container>
 
-        <ng-container matColumnDef="rent">
-          <th mat-header-cell *matHeaderCellDef>Mensualidad</th>
-          <td mat-cell *matCellDef="let lease" class="rent-amount">S/ {{ lease.monthlyRent }}</td>
-        </ng-container>
+          <ng-container matColumnDef="rent">
+            <th mat-header-cell *matHeaderCellDef>Mensualidad</th>
+            <td mat-cell *matCellDef="let lease" class="rent-amount">S/ {{ lease.monthlyRent }}</td>
+          </ng-container>
 
-        <ng-container matColumnDef="status">
-          <th mat-header-cell *matHeaderCellDef class="text-center">Estado</th>
-          <td mat-cell *matCellDef="let lease" class="text-center">
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef class="text-center">Estado</th>
+            <td mat-cell *matCellDef="let lease" class="text-center">
+              <span *ngIf="lease.status === 'finalizado'" class="badge badge-grey">Finalizado</span>
+              <span
+                *ngIf="lease.status === 'activo'"
+                class="badge clickable-badge"
+                [ngClass]="lease.paymentStatus === 'al_dia' ? 'badge-green' : 'badge-red'"
+                (click)="togglePaymentStatus(lease)"
+                matTooltip="Toca para alternar estado de pago de forma segura"
+              >
+                {{ lease.paymentStatus === 'al_dia' ? 'Al día' : 'Pendiente' }}
+              </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef class="text-center">Acciones</th>
+            <td mat-cell *matCellDef="let lease" class="text-center actions-cell">
+              <div class="actions-group-desktop">
+                <button
+                  *ngIf="lease.status === 'activo'"
+                  mat-icon-button
+                  class="btn-terminate"
+                  (click)="terminateContract(lease.id)"
+                  matTooltip="Finalizar alquiler y desalojar cuarto"
+                >
+                  <mat-icon>no_meeting_room</mat-icon>
+                </button>
+                <button
+                  mat-icon-button
+                  color="warn"
+                  (click)="deleteContract(lease.id)"
+                  matTooltip="Borrar por error de registro"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+    </mat-card>
+  } @else {
+    <div class="mobile-cards-container">
+      <mat-card *ngFor="let lease of leases" class="lease-mobile-card">
+        <div class="card-row font-bold-name-mobile">
+          {{ lease.tenant.firstName }} {{ lease.tenant.lastName }}
+          <span class="sub-dni-mobile">DNI: {{ lease.tenant.dni }}</span>
+        </div>
+
+        <div class="card-row">
+          <span class="label-text">Ubicación</span>
+          <div class="value-text text-right">
+            <span class="room-code">{{ lease.unit.unitNumber }}</span>
+            <span class="property-subtext">{{ lease.unit.floor.property.name }}</span>
+          </div>
+        </div>
+
+        <div class="card-row">
+          <span class="label-text">Mensualidad</span>
+          <span class="value-text rent-amount">S/ {{ lease.monthlyRent }}</span>
+        </div>
+
+        <div class="card-row">
+          <span class="label-text">Estado Recibo</span>
+          <div class="value-text">
             <span *ngIf="lease.status === 'finalizado'" class="badge badge-grey">Finalizado</span>
             <span
               *ngIf="lease.status === 'activo'"
               class="badge clickable-badge"
               [ngClass]="lease.paymentStatus === 'al_dia' ? 'badge-green' : 'badge-red'"
               (click)="togglePaymentStatus(lease)"
-              matTooltip="Toca para alternar estado de pago de forma segura"
             >
               {{ lease.paymentStatus === 'al_dia' ? 'Al día' : 'Pendiente' }}
             </span>
-          </td>
-        </ng-container>
+          </div>
+        </div>
 
-        <ng-container matColumnDef="actions">
-          <th mat-header-cell *matHeaderCellDef class="text-center">Acciones</th>
-          <td mat-cell *matCellDef="let lease" class="text-center actions-cell">
-            <button
-              *ngIf="lease.status === 'activo'"
-              mat-icon-button
-              class="btn-terminate"
-              (click)="terminateContract(lease.id)"
-              matTooltip="Finalizar alquiler y desalojar cuarto"
-            >
-              <mat-icon>no_meeting_room</mat-icon>
-            </button>
-            <button
-              mat-icon-button
-              color="warn"
-              (click)="deleteContract(lease.id)"
-              matTooltip="Borrar por error de registro"
-            >
-              <mat-icon>delete</mat-icon>
-            </button>
-          </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-      </table>
-
-      <div *ngIf="leases.length === 0" class="empty-state-text">
-        No se encontraron contratos con los filtros seleccionados.
-      </div>
+        <div class="card-actions-mobile">
+          <button
+            *ngIf="lease.status === 'activo'"
+            mat-button
+            class="btn-terminate-mobile"
+            (click)="terminateContract(lease.id)"
+          >
+            <mat-icon>no_meeting_room</mat-icon>
+            <span>Finalizar Contrato</span>
+          </button>
+          <button mat-button class="btn-delete-mobile" (click)="deleteContract(lease.id)">
+            <mat-icon>delete</mat-icon>
+            <span>Eliminar Registro</span>
+          </button>
+        </div>
+      </mat-card>
     </div>
-  </mat-card>
+  }
+
+  <div *ngIf="leases.length === 0" class="empty-state-text">
+    No se encontraron contratos con los filtros seleccionados.
+  </div>
 </div>
